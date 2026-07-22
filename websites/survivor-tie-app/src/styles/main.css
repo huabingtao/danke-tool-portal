@@ -939,3 +939,472 @@ body::after {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Task 3 Components: Header & AuthModal Enhanced Styles
+   ========================================================================== */
+
+/* Header Brand Subname */
+.brand-subname {
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* WeChat One-Click Login Button */
+.btn-wechat-login {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #07c160 0%, #05a04f 100%);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(7, 193, 96, 0.3);
+  transition: var(--transition-fast);
+}
+
+.btn-wechat-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(7, 193, 96, 0.5);
+  background: linear-gradient(135deg, #09d66c 0%, #06b259 100%);
+}
+
+.btn-wechat-login:active {
+  transform: translateY(0);
+}
+
+.btn-wechat-login .wechat-icon {
+  flex-shrink: 0;
+}
+
+.btn-wechat-login .btn-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.btn-wechat-login:hover .btn-glow {
+  opacity: 1;
+}
+
+/* Logged-in User Profile Card */
+.user-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0.85rem 0.4rem 0.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border-gold);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--glass-backdrop);
+}
+
+/* Gradient Aura WeChat Avatar */
+.avatar-aura-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  padding: 2px;
+  background: var(--gold-gradient);
+  box-shadow: 0 0 14px rgba(226, 177, 80, 0.5), 0 0 4px rgba(226, 177, 80, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: auraPulse 3s infinite ease-in-out;
+}
+
+@keyframes auraPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(226, 177, 80, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(226, 177, 80, 0.7);
+  }
+}
+
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #111827;
+  display: block;
+}
+
+.user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.user-nickname {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vip-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--gold-gradient);
+  color: var(--text-inverse);
+  line-height: 1;
+}
+
+.user-game-id {
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  font-family: var(--font-display);
+}
+
+/* Creator / Player Mode Toggle Button */
+.btn-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.775rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-mode-toggle.player {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.btn-mode-toggle.player:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+}
+
+.btn-mode-toggle.creator {
+  background: var(--gold-muted);
+  color: var(--gold-light);
+  border-color: rgba(226, 177, 80, 0.35);
+}
+
+.btn-mode-toggle.creator:hover {
+  background: rgba(226, 177, 80, 0.25);
+  border-color: rgba(226, 177, 80, 0.6);
+  box-shadow: var(--shadow-gold-glow);
+}
+
+/* Logout Button */
+.btn-logout {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-left: 0.2rem;
+}
+
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================================================
+   AuthModal Component Styles
+   ========================================================================== */
+
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(5, 8, 16, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
+}
+
+.auth-modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.auth-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(145deg, rgba(21, 29, 48, 0.96) 0%, rgba(15, 21, 36, 0.98) 100%);
+  border: 1px solid rgba(226, 177, 80, 0.3);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), var(--shadow-gold-glow);
+  padding: 2.25rem 2rem 2rem 2rem;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.auth-modal-backdrop.active .auth-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.dialog-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gold-gradient);
+  box-shadow: 0 2px 10px rgba(226, 177, 80, 0.5);
+}
+
+.auth-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.auth-modal-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.auth-modal-header {
+  margin-bottom: 1.75rem;
+}
+
+.auth-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(7, 193, 96, 0.12);
+  border: 1px solid rgba(7, 193, 96, 0.3);
+  color: #10b981;
+  font-size: 0.775rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+}
+
+.auth-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.4rem;
+}
+
+.auth-modal-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Form Controls */
+.auth-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-error-msg {
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-size: 0.825rem;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.required-star {
+  color: #f43f5e;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.6rem;
+  background: rgba(9, 13, 22, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 14px rgba(226, 177, 80, 0.28);
+  background: rgba(15, 21, 36, 0.85);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* Quick Presets Chips */
+.quick-presets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.preset-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip-btn {
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-sm);
+  background: rgba(226, 177, 80, 0.1);
+  border: 1px solid rgba(226, 177, 80, 0.25);
+  color: var(--gold-light);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.chip-btn:hover {
+  background: rgba(226, 177, 80, 0.2);
+  border-color: rgba(226, 177, 80, 0.45);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.btn-cancel {
+  padding: 0.7rem 1.25rem;
+}
+
+.btn-submit {
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive Adaptations for Header & AuthModal */
+@media (max-width: 768px) {
+  .user-profile-card {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .user-nickname {
+    max-width: 90px;
+  }
+
+  .btn-wechat-login {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .auth-modal-dialog {
+    padding: 1.75rem 1.25rem 1.5rem 1.25rem;
+  }
+}
+
