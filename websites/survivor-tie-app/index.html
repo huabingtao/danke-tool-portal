@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>弹壳特工队 - 并列发车平台 | Survivor Tie App</title>
+  <meta name="description" content="《弹壳特工队》高质感并列发车与多维公会战攻防协作平台，提供极速发车、车队匹配与并列对决战术同步。" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="src/styles/reset.css" />
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header Navbar -->
+    <header class="site-header">
+      <div class="brand-wrapper">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>弹壳并列发车 <span class="brand-badge">PRO v2.4</span></h1>
+          <p class="brand-subtitle">Survivor Tie & Dispatch Platform</p>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="#hall" class="nav-link active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          发车大厅
+        </a>
+        <a href="#guild" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          公会并列
+        </a>
+        <a href="#tactics" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          攻防战术
+        </a>
+        <a href="#records" class="nav-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+          发车记录
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn btn-primary" id="btn-create-room">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          快速发车
+        </button>
+        <div class="user-profile">
+          <div class="user-avatar">AG</div>
+          <span class="user-name">特工指挥官</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          并列发车与多位战略联动系统
+        </div>
+        <h2 class="hero-title">
+          高精并列发车 <br />
+          <span class="highlight">掌控公会战与全区攻防节奏</span>
+        </h2>
+        <p class="hero-description">
+          为《弹壳特工队》顶级公会与玩家打造的并行发车平台。实时毫秒级发车倒计时、多车队同步对决与出刀策略匹配，助你稳拿巅峰要塞。
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-label">在线发车车队</span>
+          <span class="metric-value gold">128 车</span>
+          <span class="metric-trend">▲ 18% 较昨日</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">今日成功并列</span>
+          <span class="metric-value">1,420 次</span>
+          <span class="metric-trend">▲ 99.4% 成功率</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">公会战匹配延迟</span>
+          <span class="metric-value gold">&lt; 45 ms</span>
+          <span class="metric-trend">极速节点传输</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">已联动指挥官</span>
+          <span class="metric-value">3,890 人</span>
+          <span class="metric-trend">▲ 240 本周新增</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Layout -->
+    <main class="main-layout">
+      <!-- Left Sidebar Filters -->
+      <aside class="sidebar-panel">
+        <div class="panel-section">
+          <h3 class="panel-title">模式筛选</h3>
+          <div class="filter-group">
+            <button class="filter-btn active">
+              <span>全部分组</span>
+              <span class="filter-count">128</span>
+            </button>
+            <button class="filter-btn">
+              <span>公会战并列</span>
+              <span class="filter-count">54</span>
+            </button>
+            <button class="filter-btn">
+              <span>区域攻防战</span>
+              <span class="filter-count">32</span>
+            </button>
+            <button class="filter-btn">
+              <span>高难副本连发</span>
+              <span class="filter-count">26</span>
+            </button>
+            <button class="filter-btn">
+              <span>试炼双发</span>
+              <span class="filter-count">16</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h3 class="panel-title">发车状态</h3>
+          <div class="filter-group">
+            <button class="filter-btn">
+              <span>🔥 正在发车</span>
+              <span class="filter-count">42</span>
+            </button>
+            <button class="filter-btn">
+              <span>⏳ 筹备等待中</span>
+              <span class="filter-count">76</span>
+            </button>
+            <button class="filter-btn">
+              <span>✅ 预约准备完成</span>
+              <span class="filter-count">10</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Room Feed -->
+      <section class="content-panel">
+        <!-- Feed Bar Header -->
+        <div class="feed-header">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" placeholder="搜索车队编号、公会或队长ID..." />
+          </div>
+          <div class="feed-actions">
+            <select class="select-input">
+              <option value="all">所有装备门槛</option>
+              <option value="high">神卡/SS级装备优先</option>
+              <option value="mid">进阶70级+</option>
+            </select>
+            <select class="select-input">
+              <option value="latest">最新创建</option>
+              <option value="countdown">即将发车</option>
+              <option value="slots">空位最多</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Room Cards List -->
+        <div class="cards-grid">
+          <!-- Room Card 1 -->
+          <article class="dispatch-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="mode-badge tie">公会战并列</span>
+                <h3 class="card-title">【S9公会战】9级BOSS 准点毫秒级并列发车</h3>
+              </div>
+              <span class="status-badge waiting">
+                <span class="status-dot"></span> 倒计时 01:45
+              </span>
+            </div>
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="detail-label">目标要塞 / 模式</span>
+                <span class="detail-val">公会远征 顶峰战局</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">发车要求</span>
+                <span class="detail-val highlight">攻击力 &ge; 18万 / 神化武器</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">战术安排</span>
+                <span class="detail-val">双刀破防 + 阳光并列</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="roster-avatars">
+                <div class="roster-avatar" style="background: #3b82f6;">威</div>
+                <div class="roster-avatar" style="background: #10b981;">影</div>
+                <div class="roster-avatar" style="background: #f59e0b;">龙</div>
+                <div class="roster-avatar empty">+</div>
+                <span class="roster-info">3 / 4 人已准备</span>
+              </div>
+              <button class="btn btn-primary">立即上车</button>
+            </div>
+          </article>
+
+          <!-- Room Card 2 -->
+          <article class="dispatch-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="mode-badge">区域攻防</span>
+                <h3 class="card-title">第120章 区域要塞 并列攻防速通车</h3>
+              </div>
+              <span class="status-badge active">
+                <span class="status-dot"></span> 发车中
+              </span>
+            </div>
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="detail-label">目标要塞 / 模式</span>
+                <span class="detail-val">区域攻防 第12章</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">发车要求</span>
+                <span class="detail-val highlight">摧锋 / 追光者套装</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">战术安排</span>
+                <span class="detail-val">交错发车 / 降温控制</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="roster-avatars">
+                <div class="roster-avatar" style="background: #8b5cf6;">猎</div>
+                <div class="roster-avatar" style="background: #ec4899;">星</div>
+                <div class="roster-avatar" style="background: #06b6d4;">零</div>
+                <div class="roster-avatar" style="background: #eab308;">风</div>
+                <span class="roster-info">4 / 4 人 (车队全满)</span>
+              </div>
+              <button class="btn btn-secondary" disabled>已满员</button>
+            </div>
+          </article>
+
+          <!-- Room Card 3 -->
+          <article class="dispatch-card">
+            <div class="card-header">
+              <div class="card-title-group">
+                <span class="mode-badge tie">试炼双发</span>
+                <h3 class="card-title">终极试炼 3人同步破防 极速并列双发</h3>
+              </div>
+              <span class="status-badge waiting">
+                <span class="status-dot"></span> 筹备中 04:12
+              </span>
+            </div>
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="detail-label">目标要塞 / 模式</span>
+                <span class="detail-val">试炼塔 150层关卡</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">发车要求</span>
+                <span class="detail-val highlight">攻击力 &ge; 12万</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">战术安排</span>
+                <span class="detail-val">三发并进 压制BOSS</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="roster-avatars">
+                <div class="roster-avatar" style="background: #ef4444;">烈</div>
+                <div class="roster-avatar empty">+</div>
+                <div class="roster-avatar empty">+</div>
+                <span class="roster-info">1 / 3 人等待中</span>
+              </div>
+              <button class="btn btn-primary">加入发车</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Right Sidebar Widgets -->
+      <aside class="widget-panel">
+        <div class="widget-card">
+          <div class="widget-header">
+            <h4 class="widget-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              发车同步节点
+            </h4>
+            <span class="widget-tag">NORMAL</span>
+          </div>
+          <div class="widget-list">
+            <div class="widget-item">
+              <div class="widget-item-info">
+                <span class="widget-item-title">华东并列加速器 #1</span>
+                <span class="widget-item-sub">延迟: 18ms | 负载: 32%</span>
+              </div>
+              <span class="status-badge active"><span class="status-dot"></span> 优良</span>
+            </div>
+            <div class="widget-item">
+              <div class="widget-item-info">
+                <span class="widget-item-title">华南公会节点 #2</span>
+                <span class="widget-item-sub">延迟: 24ms | 负载: 45%</span>
+              </div>
+              <span class="status-badge active"><span class="status-dot"></span> 优良</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <div class="widget-header">
+            <h4 class="widget-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+              热门并列组合推荐
+            </h4>
+          </div>
+          <div class="widget-list">
+            <div class="widget-item">
+              <div class="widget-item-info">
+                <span class="widget-item-title">阳光 + 摧锋双发</span>
+                <span class="widget-item-sub">公会战胜率 98.2%</span>
+              </div>
+              <span class="widget-tag">S级战术</span>
+            </div>
+            <div class="widget-item">
+              <div class="widget-item-info">
+                <span class="widget-item-title">金胜 + 追光者交错</span>
+                <span class="widget-item-sub">破防伤害最大化</span>
+              </div>
+              <span class="widget-tag">推荐</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>&copy; 2026 弹壳特工队并列发车平台 Survivor Tie App. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#terms" class="footer-link">使用规范</a>
+        <a href="#privacy" class="footer-link">隐私协议</a>
+        <a href="#api" class="footer-link">战术 API 接口</a>
+        <a href="#status" class="footer-link">发车节点状态</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
