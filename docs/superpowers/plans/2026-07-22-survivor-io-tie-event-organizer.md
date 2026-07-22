@@ -10,8 +10,8 @@
 
 ## Global Constraints
 
-- **Design Standard**: 绝不使用简陋的 MVP 视觉。使用深色黑金/暗青游戏风格，支持 Glassmorphism，支持全屏响应式（微信内置浏览器及 PC 端的无缝适配）。
-- **State Locking**: 预约成功后，除遭遇“路人混入小队作废”特例自动解锁外，全局锁定单用户在单日活动中只能锁定一个班次。
+- **Design Standard**: 简洁大气、富有艺术设计的视觉风格（Minimalist & Art-Inspired Design）。布局完美支持 **移动端、iPad/平板端 及 13寸 笔记本电脑端 (最大宽度 1280px)**。屏幕宽度 >1280px 时容器自动水平居中。
+- **State & Cooldown Locking**: 预约成功后进入 **3分钟（180秒）严禁修改与撤销保护期**。冷静期过后维持硬锁定，除非遭遇“混入路人作废”特例。
 - **Timer Precision**: 发车倒计时引擎必须达到 `HH:MM:SS.ms` 毫秒/秒级，使用 `performance.now()` 计算，防止浏览器后台休眠错乱。
 
 ---
@@ -94,21 +94,33 @@ websites/survivor-tie-app/
 }
 
 body.dark-theme {
-  background: radial-gradient(circle at top, #1e293b 0%, var(--bg-primary) 70%);
+  background: #090d16;
   color: var(--text-main);
   font-family: var(--font-main);
   min-height: 100vh;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
+#app {
+  width: 100%;
+  max-width: 1280px; /* 13寸及以内自适应，超宽屏居中 */
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* 艺术设计风格卡片：简洁、大气、平滑边框与微柔光 */
 .glass-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-glass);
+  background: rgba(18, 24, 38, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
 .btn-primary {
@@ -492,16 +504,20 @@ export const BatchLobby = {
       </div>
     `;
 
-    // 绑定事件
+    // 绑定事件与 3 分钟冷静锁定判断
     container.querySelectorAll('.book-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const batchId = e.target.dataset.id;
-        if (confirm('⚠️ 确定预约此班次吗？\n预约成功后您将与该班次永久锁定，不可退改！')) {
+        if (confirm('⚠️ 确定预约此班次吗？\n预约成功后 3 分钟内无法修改或撤销，并将与该班次锁定。')) {
           const newBookings = {
             ...bookings,
-            [user.openId]: { batchId, locked: true, status: 'booked' }
+            [user.openId]: { 
+              batchId, 
+              locked: true, 
+              status: 'booked', 
+              bookedAt: Date.now() // 记录预约时间，开启 3 分钟冷静锁
+            }
           };
-          // 增加班次人数
           const updatedBatches = batches.map(b => b.id === batchId ? { ...b, currentCount: b.currentCount + 1 } : b);
           store.setState({ bookings: newBookings, batches: updatedBatches });
         }
