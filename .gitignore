@@ -40,3 +40,7 @@ temp/
 .cache/
 .turbo/
 .vercel/
+
+# Independent subprojects
+websites/survivor-tie-next/
+
