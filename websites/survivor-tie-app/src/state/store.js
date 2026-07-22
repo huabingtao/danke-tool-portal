@@ -149,7 +149,7 @@ class Store {
    * @param {string} batchId 
    * @returns {Object} 预约锁对象
    */
-  bookBatch(batchId) {
+  bookBatch(batchId, openId) {
     const now = Date.now();
     const currentBookings = { ...this.state.bookings };
     
@@ -162,6 +162,9 @@ class Store {
       cooldownEnd: now + 3 * 60 * 1000 // 3 分钟冷静期
     };
 
+    if (openId) {
+      currentBookings[openId] = booking;
+    }
     currentBookings[batchId] = booking;
 
     // 同时更新对应班次的已预约人数
