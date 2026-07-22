@@ -37,6 +37,8 @@ export interface AppState {
   setUser: (user: User | null) => void;
   setIsAdmin: (isAdmin: boolean) => void;
   addBatch: (batch: Batch) => void;
+  updateBatch: (updated: Batch) => void;
+  deleteBatch: (batchId: string) => void;
   bookBatch: (openId: string, batchId: string) => void;
   unlockBooking: (openId: string) => void;
   markBatchInvalid: (batchId: string) => void;
@@ -77,6 +79,14 @@ export const useStore = create<AppState>()(
       setUser: (user) => set({ user }),
       setIsAdmin: (isAdmin) => set({ isAdmin }),
       addBatch: (batch) => set((state) => ({ batches: [batch, ...state.batches] })),
+      updateBatch: (updated) =>
+        set((state) => ({
+          batches: state.batches.map((b) => (b.id === updated.id ? updated : b)),
+        })),
+      deleteBatch: (batchId) =>
+        set((state) => ({
+          batches: state.batches.filter((b) => b.id !== batchId),
+        })),
       bookBatch: (openId, batchId) =>
         set((state) => ({
           bookings: {
@@ -96,7 +106,9 @@ export const useStore = create<AppState>()(
       markBatchInvalid: (batchId) =>
         set((state) => ({
           batches: state.batches.map((b) =>
-            b.id === batchId ? { ...b, status: 'invalid' } : b
+            b.id === batchId
+              ? { ...b, status: b.status === 'active' ? 'invalid' : 'active' }
+              : b
           ),
         })),
     }),
