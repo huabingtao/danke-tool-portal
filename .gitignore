@@ -1,18 +1,30 @@
-# Dependencies
-node_modules/
-.pnpm-store/
-.yarn/
-.npm/
+# Dependencies (Global wildcard for any subdirectory)
+**/node_modules/
+**/.pnpm-store/
+**/.yarn/
+**/.npm/
+**/venv/
+**/.venv/
 
-# Build outputs
-dist/
-build/
-.next/
-out/
-.nuxt/
-.output/
-.vuepress/dist/
-.vitepress/dist/
+# Build outputs & caches
+**/dist/
+**/build/
+**/.next/
+**/out/
+**/.nuxt/
+**/.output/
+**/.vuepress/dist/
+**/.vitepress/dist/
+**/.cache/
+**/.turbo/
+**/.vercel/
+
+# Generated card slice outputs
+**/小红书切图*/
+**/小红书纯净直切图*/
+**/原生网页切图*/
+**/原生网页直切图*/
+**/output_cards*/
 
 # Logs & Debug
 *.log
@@ -37,10 +49,3 @@ Thumbs.db
 # Cache & temporary files
 tmp/
 temp/
-.cache/
-.turbo/
-.vercel/
-
-# Independent subprojects
-websites/survivor-tie-next/
-
