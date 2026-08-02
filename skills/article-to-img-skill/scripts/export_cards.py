@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 article-to-img-skill (Direct Page Slicing Mode + QR Code & Recommendation Auto-Pruning)
-直接渲染微信 HTML 原生网页，自动过滤/移除“往期精彩”与“微信二维码”（防止抖音/小红书下架屏蔽），
+直接渲染微信 HTML 原生网页，自动过滤/移除末尾“往期精彩”与“微信二维码”（防止抖音/小红书下架屏蔽），
 按 3:4 (1080x1440) 比例带段落缝隙避让无缝切图。
 """
 
@@ -35,42 +35,38 @@ def direct_slice_html(html_file_path, output_dir=None, target_width=1080, target
         # 加载页面
         page.goto(file_url, wait_until="networkidle")
 
-        # 核心：自动清洗/隐藏“往期精彩”、“微信二维码”及违规引导节点（防止小红书/抖音下架）
+        # 核心：精细化只移除末尾“二维码”与“往期精彩”导流节点，不误伤正文！
         page.evaluate("""() => {
             document.body.style.margin = '0';
             document.body.style.padding = '30px 40px';
             document.body.style.background = '#ffffff';
             document.body.style.boxSizing = 'border-box';
 
-            // 1. 查找并彻底移除包含“往期精彩”、“往期推荐”、“相关推荐”、“扫码获取”等关键词的区块
-            const keywordList = ['往期精彩', '往期推荐', '相关推荐', '扫码获取更多', '关注「弹壳呱呱」', '微信公众号二维码'];
-            
-            // 找出包含关键词的最外层容器节点并隐藏
-            document.querySelectorAll('section, div, p, h2, h3').forEach(el => {
-                const text = el.innerText || '';
-                for (let kw of keywordList) {
-                    if (text.includes(kw)) {
-                        // 寻找离它最近的大块容器
-                        let container = el.closest('section[style*="border"], section[style*="margin"], div') || el;
-                        container.style.setProperty('display', 'none', 'important');
-                        container.style.setProperty('height', '0px', 'important');
-                        container.style.setProperty('margin', '0px', 'important');
-                        container.style.setProperty('padding', '0px', 'important');
-                        container.style.setProperty('overflow', 'hidden', 'important');
-                    }
-                }
-            });
-
-            // 2. 专门清洗所有带“二维码”或“QR”属性的图片及其外层包裹卡片
+            // 1. 精准清洗带“二维码”标签或图片链接的底部节点
             document.querySelectorAll('img').forEach(img => {
                 const alt = img.getAttribute('alt') || '';
                 const src = img.getAttribute('src') || '';
                 if (alt.includes('二维码') || src.includes('二维码') || alt.includes('QR') || src.includes('qrcode')) {
-                    let parent = img.closest('section, div, p') || img;
-                    parent.style.setProperty('display', 'none', 'important');
-                    parent.style.setProperty('height', '0px', 'important');
-                    parent.style.setProperty('margin', '0px', 'important');
-                    parent.style.setProperty('padding', '0px', 'important');
+                    let container = img.closest('section, div') || img;
+                    container.remove();
+                }
+            });
+
+            // 2. 专门移除末尾“往期精彩”、“往期推荐”、“扫码获取更多”区块
+            const targetTexts = ['往期精彩', '往期推荐', '相关推荐', '扫码获取更多'];
+            document.querySelectorAll('h2, h3, h4, section, p').forEach(el => {
+                const text = (el.innerText || '').trim();
+                for (let kw of targetTexts) {
+                    if (text === kw || text.startsWith(kw)) {
+                        let nextNode = el.nextElementSibling;
+                        el.remove();
+                        while (nextNode) {
+                            let temp = nextNode.nextElementSibling;
+                            nextNode.remove();
+                            nextNode = temp;
+                        }
+                        break;
+                    }
                 }
             });
         }""")
