@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "douyin": {
+      "source": "xiaoyiv/douyin-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "428031b5921a452de5a95c75141c1648826f30070bf7627d2a1defbe8d448bcc"
+    },
+    "xiaohongshu": {
+      "source": "zhjiang22/openclaw-xhs",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "1075f772f0d5fee092fa63c3eac324430e0712b8a7f2c3d42245b736f618978b"
+    }
+  }
+}
