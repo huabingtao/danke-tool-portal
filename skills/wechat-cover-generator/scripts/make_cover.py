@@ -120,6 +120,9 @@ def main():
     font_path = args.font
     if not font_path or not os.path.exists(font_path):
         options = [
+            '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
+            '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
+            '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
             '/System/Library/Fonts/Hiragino Sans GB.ttc',
             '/System/Library/Fonts/STHeiti Medium.ttc',
             '/System/Library/Fonts/Supplemental/Songti.ttc'
