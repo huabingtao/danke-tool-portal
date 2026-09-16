@@ -33,6 +33,9 @@ def find_best_crop_y(img, crop_h=500):
     representing the most visually interesting content (rewards/chests/pets).
     """
     w, h = img.size
+    crop_h = min(crop_h, h)
+    if crop_h == h:
+        return 0, h
     img_l = img.convert('L')
     pixels = list(img_l.getdata())
     
@@ -47,18 +50,30 @@ def find_best_crop_y(img, crop_h=500):
         var = sum((x - mean)**2 for x in row_pixels) / len(row_pixels)
         row_vars.append(var)
         
-    # Search for the best window in the range y=[300, h - 300]
-    best_top = 400
+    max_top = max(0, h - crop_h)
+    if max_top == 0:
+        return 0, h
+        
+    # Search within comfortable range if image is tall enough, otherwise across all possible tops
+    if max_top >= 300:
+        search_start = min(300, max_top)
+        search_end = max(search_start, max_top - 300 if max_top >= 600 else max_top)
+    else:
+        search_start = 0
+        search_end = max_top
+
+    best_top = search_start
     max_var = -1
-    search_start = min(300, h - crop_h)
-    search_end = max(h - 300, search_start + 1)
     
-    for top in range(search_start, search_end - crop_h, 10):
-        window_var = sum(row_vars[top : top + crop_h]) / crop_h
+    step = max(1, (search_end - search_start) // 50) if search_end > search_start else 1
+    for top in range(search_start, search_end + 1, step):
+        top_clamped = min(top, max_top)
+        window_var = sum(row_vars[top_clamped : top_clamped + crop_h]) / crop_h
         if window_var > max_var:
             max_var = window_var
-            best_top = top
+            best_top = top_clamped
             
+    best_top = max(0, min(best_top, h - crop_h))
     return best_top, best_top + crop_h
 
 def main():
@@ -76,13 +91,13 @@ def main():
     # Resolve style properties
     if args.style == 'horizontal':
         canvas_w, canvas_h = 900, 384
-        default_crop_h = 500
+        default_crop_h = min(500, h)
     elif args.style == 'vertical':
         canvas_w, canvas_h = 640, 853  # 3:4 aspect ratio
-        default_crop_h = 1560
+        default_crop_h = min(1560, h)
     elif args.style == 'square':
         canvas_w, canvas_h = 500, 500  # 1:1 aspect ratio
-        default_crop_h = 1170
+        default_crop_h = min(1170, h)
         
     # Resolve output path
     output_path = args.output
@@ -101,6 +116,10 @@ def main():
         crop_start, crop_end = find_best_crop_y(img, default_crop_h)
         print(f"ℹ Auto-detected crop range: {crop_start}-{crop_end}")
         
+    # Clamp crop coordinates strictly within [0, h]
+    crop_start = max(0, min(crop_start, h - 1))
+    crop_end = max(crop_start + 1, min(crop_end, h))
+    
     # Crop the raw region
     raw_cropped = img.crop((0, crop_start, w, crop_end))
     
@@ -120,9 +139,6 @@ def main():
     font_path = args.font
     if not font_path or not os.path.exists(font_path):
         options = [
-            '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
-            '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
-            '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
             '/System/Library/Fonts/Hiragino Sans GB.ttc',
             '/System/Library/Fonts/STHeiti Medium.ttc',
             '/System/Library/Fonts/Supplemental/Songti.ttc'
@@ -147,9 +163,37 @@ def main():
         font = ImageFont.truetype(font_path, font_size)
     else:
         font = ImageFont.load_default()
+
+    # Calculate max width for text wrapping (maintaining appropriate margins)
+    if args.style == 'horizontal':
+        max_text_w = canvas_w - 200
+    elif args.style == 'vertical':
+        max_text_w = canvas_w - 120
+    else:
+        max_text_w = canvas_w - 100
+
+    # Auto wrap text if lines exceed max width
+    temp_draw = ImageDraw.Draw(Image.new('L', (1, 1)))
+    def wrap_text(text, font, max_w, draw_obj):
+        lines = []
+        for paragraph in text.split('\n'):
+            current_line = ""
+            for char in paragraph:
+                test_line = current_line + char
+                bbox = draw_obj.textbbox((0, 0), test_line, font=font)
+                w = bbox[2] - bbox[0]
+                if w > max_w and current_line:
+                    lines.append(current_line)
+                    current_line = char
+                else:
+                    current_line = test_line
+            if current_line:
+                lines.append(current_line)
+        return '\n'.join(lines)
+
+    text_content = wrap_text(text_content, font, max_text_w, temp_draw)
         
     # Calculate sizes
-    temp_draw = ImageDraw.Draw(Image.new('L', (1, 1)))
     bbox = temp_draw.multiline_textbbox((0, 0), text_content, font=font, align='center', spacing=line_spacing)
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
