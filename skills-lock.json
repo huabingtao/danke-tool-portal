@@ -7,6 +7,12 @@
       "skillPath": "SKILL.md",
       "computedHash": "428031b5921a452de5a95c75141c1648826f30070bf7627d2a1defbe8d448bcc"
     },
+    "wechat-article": {
+      "source": "xbtlin/ai-berkshire",
+      "sourceType": "github",
+      "skillPath": "codex-skills/wechat-article/SKILL.md",
+      "computedHash": "4b8d584725a51b2fb683d9b2443d40087bf803aefd96fe6fb1022320dbfe4521"
+    },
     "xiaohongshu": {
       "source": "zhjiang22/openclaw-xhs",
       "sourceType": "github",
