@@ -21,3 +21,17 @@
 
 ### 4. 敏感凭证与本地缓存
 - 微信公众号草稿发布配置 `wechat-publisher-skill/scripts/config.json` 与各本地缓存（`.wechat_*_cache.json`）存放在本地自研库对应技能目录下，受 `.gitignore` 保护，严禁公开或清除。
+
+## 项目目录结构（2026-10-20 更新）
+
+所有项目直接存放于 `my-project/` 根目录下，采用扁平结构管理；技能体系继续沿用 `skills` 软链接。项目清单见 `README.md`。
+
+## 封面输出偏好（2026-10-11 用户要求）
+
+以后制作封面，默认同时输出横屏（公众号 2.35:1）和竖屏（图文 3:4）两种版本，保持风格与文案一致，分别适配布局。成品保存到文章 `dist/cover.png`、`dist/cover_vertical.png`，同步源码 frontmatter 与发布元数据。已有横版时可复用并补齐竖版；用户当次另有明确要求时按当次要求执行。日历横版继续遵循内容项目的共同系列封面规则。
+
+## 弹壳特攻队大模型知识库（LLM Wiki，2026-10-26 建立）
+
+- **知识库位置**：`/Users/hbt/my-project/danke-wiki`（在 `danke-creator/wiki` 下建有软链接）。
+- **检索先行（Query）**：回答《弹壳特攻队》养成机制问题、撰写攻略或核对 `{{short}}` 道具宏前，优先读取 `danke-wiki/index.md` 与对应 `danke-wiki/domains/*.md`（或调用 `danke-mcp-server` 的 `get_wiki_index` / `get_wiki_domain` / `search_danke_wiki` 工具），不凭预训练记忆猜测数值。
+- **增量演进（Ingest & Lint）**：在 `danke-creator/my-articles-md/` 新增主攻略或版本更新后，按 `danke-wiki/WIKI_PROTOCOL.md` 将新机制同步至 `danke-wiki/domains/*.md` 与 `log.md`，并运行 `node /Users/hbt/my-project/danke-wiki/scripts/build-wiki.mjs && node /Users/hbt/my-project/danke-wiki/scripts/lint-wiki.mjs`。

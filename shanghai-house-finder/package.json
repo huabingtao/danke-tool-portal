@@ -1,0 +1,36 @@
+{
+  "name": "shanghai-house-finder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "上海市二手房与新房可视化找房工作台 - 支持总价/单价区间过滤、户型图/实拍图画廊、三维交通(地铁/公交/自驾)通勤测算与周边四大配套(商超/医院/学校/公园)地图联动",
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3088",
+    "build": "next build --webpack",
+    "start": "next start -p 3088",
+    "seed": "node --experimental-strip-types scripts/seed-real-data.ts",
+    "crawl": "node --experimental-strip-types scripts/run-crawler.ts",
+    "test": "vitest run",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "lucide-react": "^1.41.0",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "jsdom": "^29.1.1",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.10"
+  }
+}

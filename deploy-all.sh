@@ -13,17 +13,17 @@ echo "🚀 [1/4] 开始本地三端项目增量构建 (Build)..."
 
 # 1. 构建 danke-core
 echo "📦 构建 danke-core (NestJS)..."
-cd "$BASE_DIR/apps/danke-core"
+cd "$BASE_DIR/danke-core"
 npm run build
 
 # 2. 构建 danke-web
 echo "📦 构建 danke-web (Next.js)..."
-cd "$BASE_DIR/apps/danke-web"
+cd "$BASE_DIR/danke-web"
 npm run build
 
 # 3. 构建 danke-admin
 echo "📦 构建 danke-admin (Next.js)..."
-cd "$BASE_DIR/apps/danke-admin"
+cd "$BASE_DIR/danke-admin"
 NEXT_PUBLIC_CORE_API_URL="https://dankecore.guaguahub.cn" npm run build
 
 echo "✅ [1/4] 本地三端构建完成！"
@@ -37,34 +37,34 @@ rsync -avz --delete \
   --exclude '.git' \
   --exclude '.next' \
   --exclude 'src' \
-  "$BASE_DIR/apps/danke-core/dist" \
-  "$BASE_DIR/apps/danke-core/generated" \
-  "$BASE_DIR/apps/danke-core/prisma" \
-  "$BASE_DIR/apps/danke-core/data" \
-  "$BASE_DIR/apps/danke-core/package.json" \
-  "$BASE_DIR/apps/danke-core/.env" \
+  "$BASE_DIR/danke-core/dist" \
+  "$BASE_DIR/danke-core/generated" \
+  "$BASE_DIR/danke-core/prisma" \
+  "$BASE_DIR/danke-core/data" \
+  "$BASE_DIR/danke-core/package.json" \
+  "$BASE_DIR/danke-core/.env" \
   "$SERVER_USER@$SERVER_IP:/var/www/danke-core/"
 
 # 传输 danke-web
 echo "🚚 传输 danke-web 产物..."
-mkdir -p "$BASE_DIR/apps/danke-web/public"
+mkdir -p "$BASE_DIR/danke-web/public"
 rsync -avz --delete \
   --exclude 'node_modules' \
   --exclude '.git' \
-  "$BASE_DIR/apps/danke-web/.next" \
-  "$BASE_DIR/apps/danke-web/public" \
-  "$BASE_DIR/apps/danke-web/package.json" \
+  "$BASE_DIR/danke-web/.next" \
+  "$BASE_DIR/danke-web/public" \
+  "$BASE_DIR/danke-web/package.json" \
   "$SERVER_USER@$SERVER_IP:/var/www/danke-web/"
 
 # 传输 danke-admin
 echo "🚚 传输 danke-admin 产物..."
-mkdir -p "$BASE_DIR/apps/danke-admin/public"
+mkdir -p "$BASE_DIR/danke-admin/public"
 rsync -avz --delete \
   --exclude 'node_modules' \
   --exclude '.git' \
-  "$BASE_DIR/apps/danke-admin/.next" \
-  "$BASE_DIR/apps/danke-admin/public" \
-  "$BASE_DIR/apps/danke-admin/package.json" \
+  "$BASE_DIR/danke-admin/.next" \
+  "$BASE_DIR/danke-admin/public" \
+  "$BASE_DIR/danke-admin/package.json" \
   "$SERVER_USER@$SERVER_IP:/var/www/danke-admin/"
 
 echo "✅ [2/4] 产物文件同步完成！"
