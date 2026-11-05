@@ -8,11 +8,15 @@ from fastapi import APIRouter, HTTPException, Query
 
 router = APIRouter(prefix="/api/skills", tags=["Skills Marketplace"])
 
-SKILL_DIRECTORIES = [
-    "/Users/hbt/my-project/skills",
-    "/Users/hbt/.gemini/config/skills",
-    "/Users/hbt/my-project/.agents/skills"
-]
+_project_root = Path(__file__).resolve().parents[5]
+SKILL_DIRECTORIES = (
+    [str(Path(value).expanduser().resolve()) for value in os.environ['DANKE_SKILL_DIRS'].split(os.pathsep) if value]
+    if os.environ.get('DANKE_SKILL_DIRS') else [
+        str(_project_root.parent.parent / 'skills/skills'),
+        str(Path.home() / '.gemini/config/skills'),
+        str(_project_root.parent.parent / '.agents/skills'),
+    ]
+)
 
 CATEGORY_RULES = {
     "content": {

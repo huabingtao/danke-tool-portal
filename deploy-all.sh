@@ -7,7 +7,8 @@ set -e
 
 SERVER_IP="124.220.195.160"
 SERVER_USER="root"
-BASE_DIR="/Users/hbt/my-project"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+BASE_DIR="${DANKE_PROJECTS_ROOT:-$(dirname -- "$SCRIPT_DIR")}"
 
 echo "🚀 [1/4] 开始本地三端项目增量构建 (Build)..."
 
