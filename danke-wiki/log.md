@@ -4,6 +4,11 @@
 
 ---
 
+## [2026-11-05] INGEST | 月度资源获取页面展示
+
+- 更新 domains/game-modes-and-guild.md：记录资源/玩法双视图及数量口径限制，无新增游戏收益数值。
+- 当前 Wiki 位于 danke-tool-portal 内，编译器仍引用旧的相邻 Creator 和 macOS 素材路径；本次仅执行检查并记录结果，不改动工具实现。
+
 ## [2026-10-26] INIT & FULL COMPILE | 初始编译全量知识库 (v1.0)
 
 - **Action**: `INIT` / `INGEST`
@@ -19,3 +24,5 @@
   8. `domains/game-modes-and-guild.md`：整理逃离行动卡 5 分 38 秒进安全屋与 80~130 天赋树、新版区域行动 5 机制、联机挑战夺取异宠规则、公会月产 79.68 万币与商店 77.89 万币精算、潮汐秘境 1200/500 宝钻方案、日常周常每周 1010 钻。
   9. `domains/activity-budget-models.md`：整理限时活动预算精算公式、不计未确认广告铁律、累计奖励规范及全系列 8 类钥匙白嫖产出总账。
   10. `domains/macros-and-style-guide.md` & `articles-index.md`：通过 `scripts/build-wiki.mjs` 编译全量 285+ 短宏映射与原始文章索引，并通过 `scripts/lint-wiki.mjs` 校验。
+
+[2026-11-05] INGEST | 惊喜连锁礼包购买推荐：更新 activity-budget-models 当期两条路线及矩阵能量个人估值；限本期，不推广倒计时。原 Wiki 链接缺失，使用迁移保留目录。
